@@ -1,11 +1,13 @@
-import sys
 import logging
+import sys
+
 from assistant_core.config import load_settings
-from assistant_core.logging_setup import JsonFormatter
 from assistant_core.knowledge import OfficeDirectory
+from assistant_core.logging_setup import JsonFormatter
+from assistant_core.models import Message
 from assistant_core.responder import StubLLMResponder
 from assistant_core.service import AssistantService
-from assistant_core.models import Message
+
 
 def main():
     # 1. Thiết lập logging in ra stderr
@@ -25,11 +27,12 @@ def main():
     settings = load_settings()
     offices_path = settings.data_dir / "offices.csv"
     offices = OfficeDirectory.from_csv(offices_path)
-    
+
     # Tạo class giả cho Handbook (vì ta chưa hoàn thiện phần này)
     class DummyHandbook:
-        def search(self, text): return None
-    
+        def search(self, text):
+            return None
+
     # 4. Khởi tạo Service
     responder = StubLLMResponder()
     service = AssistantService(settings, offices, DummyHandbook(), responder)
@@ -38,8 +41,9 @@ def main():
     msg = Message(text=user_text)
     logger.info("handled")
     response = service.handle(msg)
-    
+
     print(response.answer)
+
 
 if __name__ == "__main__":
     main()

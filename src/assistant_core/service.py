@@ -1,18 +1,16 @@
 import logging
-from assistant_core.models import Message, Response, Intent, Source
-from assistant_core.router import route
-from assistant_core.errors import ProviderError, InvalidRequest
+
+from assistant_core.errors import InvalidRequest, ProviderError
+from assistant_core.models import Intent, Message, Response, Source
 from assistant_core.responder import TemplateResponder
+from assistant_core.router import route
 from assistant_core.tools import parse_credits, tuition  # Import thêm công cụ tính toán
-import logging
-from assistant_core.models import Message, Response, Intent, Source
-from assistant_core.router import route
-from assistant_core.errors import ProviderError
-from assistant_core.responder import TemplateResponder
-# Lưu ý: Cần import thêm hàm _fee từ tools nếu bạn tách nó ra, 
+
+# Lưu ý: Cần import thêm hàm _fee từ tools nếu bạn tách nó ra,
 # ở đây tài liệu dùng self._fee() như một phương thức nội bộ hoặc gọi trực tiếp tools.tuition().
 
 log = logging.getLogger(__name__)
+
 
 class AssistantService:
     def __init__(self, settings, offices, handbook, responder):
@@ -25,7 +23,7 @@ class AssistantService:
         if intent is Intent.GREETING:
             return Response(answer="Hello! I can help with offices, fees and rules.", intent=intent)
         if intent is Intent.FEE:
-            return self._fee(msg.text) # Giả định bạn đã bọc tools.tuition vào hàm _fee
+            return self._fee(msg.text)  # Giả định bạn đã bọc tools.tuition vào hàm _fee
         if intent is Intent.OFFICE:
             o = self.offices.find(msg.text)
             return Response(answer=f"{o.name}: room {o.room}, open {o.hours}.", intent=intent)
@@ -42,21 +40,22 @@ class AssistantService:
             log.warning("provider failed; using template fallback")
             answer = self.fallback.explain(text, rule)
             return Response(answer=answer, intent=Intent.RULE, sources=sources, degraded=True)
+
     def _fee(self, text: str) -> Response:
         try:
             # Lấy số tín chỉ từ tin nhắn
             credits, retake = parse_credits(text)
-            
+
             # Tính học phí dựa trên thông số từ settings
             cost = tuition(
                 credits,
                 retake,
                 self.settings.credit_rate_vnd,
                 self.settings.retake_multiplier,
-                self.settings.max_credits
+                self.settings.max_credits,
             )
             return Response(answer=f"Your tuition is {cost:,} VND.", intent=Intent.FEE)
-            
+
         except InvalidRequest as e:
             # Trả lời thông báo lỗi nếu dữ liệu đầu vào không hợp lệ
-            return Response(answer=str(e), intent=Intent.FEE)    
+            return Response(answer=str(e), intent=Intent.FEE)
