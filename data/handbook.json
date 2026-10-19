@@ -1,7 +1,52 @@
-[
-  {"id": "H26-4.2", "title": "Retaking a course", "text": "Students may retake a course they failed. Retake credits are charged at 1.5 times the normal rate. Final-year students must register retakes before week 2."},
-  {"id": "H26-5.3", "title": "Thesis registration", "text": "Students may register a thesis when they have at least 120 accumulated credits and a GPA of at least 2.0."},
-  {"id": "H26-5.4", "title": "Late thesis registration", "text": "Late thesis registration requires approval from the Faculty and the supervisor."},
-  {"id": "H26-6.1", "title": "Credit load", "text": "A regular semester load is between 14 and 30 credits. More than 30 credits requires approval."},
-  {"id": "H26-7.2", "title": "Exam absence", "text": "Students absent from a final exam for medical reasons must submit evidence to the Training Office within 3 working days."}
-]
+{
+  "faq": [
+    {
+      "id": "faq_thesis_credits",
+      "question": "Điều kiện đăng ký khóa luận tốt nghiệp là gì?",
+      "answer": "Sinh viên cần tích lũy tối thiểu 120 tín chỉ và đạt điểm trung bình tích lũy (GPA) từ 2.0 trở lên."
+    },
+    {
+      "id": "faq_it_helpdesk",
+      "question": "Phòng IT Helpdesk ở đâu và hỗ trợ vào thời gian nào?",
+      "answer": "Phòng IT Helpdesk đặt tại phòng E.005, làm việc từ Thứ Hai đến Thứ Sáu, từ 08:00 đến 17:00."
+    },
+    {
+      "id": "faq_tuition_payment",
+      "question": "Đóng học phí ở đâu?",
+      "answer": "Sinh viên đóng học phí trực tuyến qua cổng thanh toán của trường hoặc liên hệ phòng Kế toán A.201."
+    },
+    {
+      "id": "faq_medical_support",
+      "question": "Trạm y tế trường nằm ở đâu?",
+      "answer": "Trạm y tế trường nằm tại phòng A.105, hỗ trợ sơ cấp cứu và khám chữa bệnh ban đầu từ 08:00 - 16:30 các ngày trong tuần."
+    }
+  ],
+  "rules": [
+    {
+      "name": "Thesis Eligibility",
+      "min_credits": 120,
+      "min_gpa": 2.0
+    },
+    {
+      "name": "Academic Probation",
+      "threshold_gpa": 1.0
+    }
+  ],
+  "departments": [
+    {
+      "name": "Training Office",
+      "code": "TO",
+      "location": "I.101"
+    },
+    {
+      "name": "Student Affairs",
+      "code": "SA",
+      "location": "I.102"
+    },
+    {
+      "name": "IT Helpdesk",
+      "code": "IT",
+      "location": "E.005"
+    }
+  ]
+}

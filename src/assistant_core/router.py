@@ -1,9 +1,10 @@
-from assistant_core.models import Intent
+from assistant_core.models import Intent  # type: ignore
 
 GREETINGS = frozenset({"hi", "hello", "hey", "xin chao"})
 
 
 def route(text: str, office_names: set[str]) -> Intent:
+    """Classify user query into an Intent."""
     t = text.lower().strip().rstrip("?!.")
     if t in GREETINGS:
         return Intent.GREETING

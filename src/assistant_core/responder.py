@@ -1,16 +1,7 @@
-# Lưu ý: Lớp Rule này thường được định nghĩa trong models.py hoặc knowledge.py (phần Handbook).
-# Ở đây ta định nghĩa tạm một dataclass để code không bị lỗi cú pháp khi gọi thuộc tính.
-from dataclasses import dataclass
 from typing import Protocol
 
 from assistant_core.errors import ProviderError
-
-
-@dataclass
-class Rule:
-    id: str
-    title: str
-    text: str
+from assistant_core.knowledge import Rule
 
 
 class Responder(Protocol):
