@@ -1,24 +1,24 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "assistant-core"
 version = "0.3.0"
+description = "Maintainable Python core service for Smart Virtual Assistant"
+readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "pydantic>=2.7,<3",
-    "python-dotenv>=1.0,<2",
+    "pydantic>=2.0.0",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.pytest.ini_options]
-pythonpath = ["src"]
-
 [tool.ruff]
-line-length = 120
+line-length = 100
+target-version = "py310"
 
-[tool.ruff.lint]
-select = ["E", "F", "I", "B", "UP", "BLE"]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
