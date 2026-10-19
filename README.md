@@ -19,7 +19,7 @@ Dự án dịch vụ cốt lõi `assistant_core` có khả năng bảo trì cao 
 
 | Thành viên | Vai trò & Phụ trách chính | Chi tiết nhiệm vụ |
 |---|---|---|
-| **Thành viên 1** | **Tech Lead** | Quản lý `service.py`, giao diện dòng lệnh (CLI), tổng hợp bản ghi chú kiến trúc (`docs/architecture.md`), gắn thẻ release `v0.3-core`. |
+| **Thành viên 1**  *(Mã Quốc Thuận)* | **Tech Lead** | Quản lý `service.py`, giao diện dòng lệnh (CLI), tổng hợp bản ghi chú kiến trúc (`docs/architecture.md`), gắn thẻ release `v0.3-core`. |
 | **Thành viên 2** | **Configuration & Logging** | Thiết lập cấu hình với `config.py`, tạo file mẫu `.env.example` và cấu hình hệ thống logging tập trung. |
 | **Thành viên 3** | **Knowledge & Responder** | Quản lý các mô-đun `knowledge.py` và `responder.py` để chuẩn bị sẵn sàng cho phần mở rộng AI vào Tuần 4. |
 | **Thành viên 4** | **Tools & Router Tests** | Đảm nhận phát triển `tools.py` và viết các bài kiểm thử cho bộ định tuyến (router tests). |
