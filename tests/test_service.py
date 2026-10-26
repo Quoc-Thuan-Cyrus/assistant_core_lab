@@ -4,7 +4,42 @@ from assistant_core.models import Intent, Message  # type: ignore
 from assistant_core.responder import StubLLMResponder  # type: ignore
 from pydantic import ValidationError  # type: ignore
 
+from unittest.mock import MagicMock
+import pytest # type: ignore
+from assistant_core.responder import StubLLMResponder # type: ignore
 
+# Import your service (adjust the import path if it's in assistant_core.service)
+from assistant_core.service import AssistantService
+@pytest.fixture
+def service():
+    # 1. Setup mock settings for the fee calculation
+    settings = MagicMock()
+    settings.credit_rate_vnd = 450000       # adjust to match your math
+    settings.retake_multiplier = 1.5        # adjust to match your math
+    settings.max_credits = 24               # adjust as needed
+    
+    # 2. Setup mock offices for the office lookup
+    offices = MagicMock()
+    offices.names = ["academic affairs"]
+    mock_office = MagicMock()
+    mock_office.name = "Academic Affairs"
+    mock_office.room = "E102"
+    mock_office.hours = "8AM-5PM"
+    offices.find.return_value = mock_office
+    
+    # 3. Setup mock handbook for rule lookup
+    handbook = MagicMock()
+    mock_rule = MagicMock()
+    mock_rule.id = "R01"
+    mock_rule.title = "Thesis Registration"
+    # Ensure handbook.search returns the mock rule for the known query, and None otherwise
+    handbook.search.side_effect = lambda text: mock_rule if "thesis" in text.lower() else None
+    
+    # 4. Setup the responder
+    responder = StubLLMResponder(fail=False)
+    
+    # Return the initialized service
+    return AssistantService(settings, offices, handbook, responder)
 def test_greeting_response(service):
     r = service.handle(Message(text="Hello!"))
     assert r.intent is Intent.GREETING

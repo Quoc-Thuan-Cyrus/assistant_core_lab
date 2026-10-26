@@ -42,20 +42,14 @@ class AssistantService:
             return Response(answer=answer, intent=Intent.RULE, sources=sources, degraded=True)
 
     def _fee(self, text: str) -> Response:
-        try:
-            # Lấy số tín chỉ từ tin nhắn
-            credits, retake = parse_credits(text)
-
-            # Tính học phí dựa trên thông số từ settings
-            cost = tuition(
-                credits,
-                retake,
-                self.settings.credit_rate_vnd,
-                self.settings.retake_multiplier,
-                self.settings.max_credits,
-            )
-            return Response(answer=f"Your tuition is {cost:,} VND.", intent=Intent.FEE)
-
-        except InvalidRequest as e:
-            # Trả lời thông báo lỗi nếu dữ liệu đầu vào không hợp lệ
-            return Response(answer=str(e), intent=Intent.FEE)
+        # Remove the try...except block so the InvalidRequest error is raised
+        credits, retake = parse_credits(text)
+        
+        cost = tuition(
+            credits,
+            retake,
+            self.settings.credit_rate_vnd,
+            self.settings.retake_multiplier,
+            self.settings.max_credits,
+        )
+        return Response(answer=f"Your tuition is {cost:,} VND.", intent=Intent.FEE)
