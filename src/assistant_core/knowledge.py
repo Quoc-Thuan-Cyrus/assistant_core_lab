@@ -28,7 +28,7 @@ class OfficeDirectory:
     @classmethod
     def from_csv(cls, path: Path) -> "OfficeDirectory":
         try:
-            with path.open(encoding="utf-8", newline="") as f:
+            with path.open(encoding="utf-8-sig", newline="") as f:
                 rows = list(csv.DictReader(f))
         except FileNotFoundError as exc:
             raise DataError(f"office file not found: {path}") from exc
@@ -58,7 +58,7 @@ class Handbook:
             raise DataError(f"handbook file not found: {path}") from exc
         except (KeyError, TypeError, json.JSONDecodeError) as exc:
             raise DataError(f"malformed handbook file: {path}") from exc
-        return cls([Rule(id=r["id"], title=r["title"], text=r["text"]) for r in data])
+        return cls([Rule(id=r["id"], title=r["question"], text=r["answer"]) for r in data["faq"]])
 
     def search(self, query: str) -> Rule | None:
         query_words = set(re.findall(r"\w+", query.lower()))
