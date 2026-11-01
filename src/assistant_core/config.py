@@ -15,6 +15,12 @@ class Settings(BaseModel):
     retake_multiplier: float = 1.5
     max_credits: int = 30
     log_level: str = "INFO"
+    weather_url: str = "https://api.open-meteo.com/v1/forecast"
+    campus_lat: float = 10.7626
+    campus_lon: float = 106.6823
+    weather_timeout_s: float = 3.0 
+    rate_limit_per_min: int = 60
+    api_admin_key: str = "change-me"
 
 
 def load_settings(env_file: str | None = ".env") -> Settings:

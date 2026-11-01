@@ -82,3 +82,13 @@ def test_weather_stale_cache_when_upstream_fails():
     w.cache_ttl_s = 0  # force a refresh on the second call
     assert not w.current().stale
     assert w.current().stale
+def test_get_offices_status_200(client):
+    response = client.get("/v1/offices")
+    assert response.status_code == 200
+
+def test_get_offices_contains_library(client):
+    response = client.get("/v1/offices")
+    data = response.json()
+    # Check if any of the returned dictionaries has the name "Library"
+    names = [office["name"] for office in data]
+    assert "Library" in names

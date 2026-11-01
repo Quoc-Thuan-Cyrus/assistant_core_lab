@@ -1,5 +1,7 @@
 import logging
-
+from pathlib import Path
+from .knowledge import OfficeDirectory, Handbook
+from .responder import TemplateResponder
 from assistant_core.errors import InvalidRequest, ProviderError
 from assistant_core.models import Intent, Message, Response, Source
 from assistant_core.responder import TemplateResponder
@@ -53,3 +55,10 @@ class AssistantService:
             self.settings.max_credits,
         )
         return Response(answer=f"Your tuition is {cost:,} VND.", intent=Intent.FEE)
+def build_service(settings=None):
+    return AssistantService(
+        settings=settings,
+        offices=OfficeDirectory.from_csv(Path("data/offices.csv")),
+        handbook=Handbook.from_json(Path("data/handbook.json")),
+        responder=TemplateResponder()
+    )
