@@ -96,5 +96,8 @@ def create_app(
         except ExternalServiceError:
             raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Weather service unavailable") from None
         raise NotImplementedError("T4")
-
+    @app.get("/v1/offices")
+    def get_offices():
+        return [o.__dict__ for o in service.offices.all()]    
     return app
+    

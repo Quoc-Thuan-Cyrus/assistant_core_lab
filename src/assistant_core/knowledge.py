@@ -24,7 +24,8 @@ class Rule:
 class OfficeDirectory:
     def __init__(self, offices: dict[str, Office]):
         self._offices = offices
-
+    def all(self) -> list[Office]:
+        return sorted(self._offices.values(), key=lambda o: o.name)
     @classmethod
     def from_csv(cls, path: Path) -> "OfficeDirectory":
         try:

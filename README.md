@@ -32,3 +32,9 @@ Dự án dịch vụ cốt lõi `assistant_core` có khả năng bảo trì cao 
 ## 📌 Lưu ý bắt buộc cho tất cả thành viên:
 1. Mỗi người phải tự thiết lập mã nguồn, chạy kiểm thử, định dạng mã bằng **Ruff** và tự hoàn thành phần review AI extension của riêng mình (tối thiểu 3 thay đổi mã do AI tạo ra) vào trước **23:59 ngày trước buổi Lab 4**.
 2. **Bảo mật:** Mọi thông tin nhạy cảm (như `API_KEY`) không được phép in ra console hay lưu vào Git, thay vào đó phải đọc từ biến môi trường thông qua file `.env` (file này tuyệt đối không được commit).
+## H2:Reflection, what is the difference between calling service.handle() in Lab 3 and calling POST /v1/chat today? Why might a team prefer the HTTP version?
+1. service.handle() is a direct function call. 
+2. POST /v1/chat is an HTTP network request.
+- Language flexibility
+- Centralized updates
+- Scalability and security
