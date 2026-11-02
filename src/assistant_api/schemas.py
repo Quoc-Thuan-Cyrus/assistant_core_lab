@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
 from assistant_core.models import Intent, Source
-from typing import Literal
+
+
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000, examples=["tuition for 18 credits and 2 retake"])
     session_id: str = Field(default="anonymous", max_length=64)

@@ -5,7 +5,14 @@ from fastapi.testclient import TestClient
 from assistant_api.main import create_app
 from assistant_api.weather import WeatherClient
 
-OK_JSON = {"current": {"time": "2026-10-05T09:00", "temperature_2m": 31.2, "weather_code": 3, "wind_speed_10m": 8.5}}
+OK_JSON = {
+    "current": {
+        "time": "2026-10-05T09:00",
+        "temperature_2m": 31.2,
+        "weather_code": 3,
+        "wind_speed_10m": 8.5,
+    }
+}
 
 
 def weather_with(handler) -> WeatherClient:
@@ -37,7 +44,6 @@ def test_chat_validation_error(client):
     assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
 
 
-@pytest.mark.skip(reason="BONUS task — remove this line when you add rate limiting")
 def test_rate_limit(client):
     codes = [client.post("/v1/chat", json={"message": "hi"}).status_code for _ in range(6)]
     assert codes[-1] == 429
@@ -82,9 +88,12 @@ def test_weather_stale_cache_when_upstream_fails():
     w.cache_ttl_s = 0  # force a refresh on the second call
     assert not w.current().stale
     assert w.current().stale
+
+
 def test_get_offices_status_200(client):
     response = client.get("/v1/offices")
     assert response.status_code == 200
+
 
 def test_get_offices_contains_library(client):
     response = client.get("/v1/offices")
@@ -92,3 +101,5 @@ def test_get_offices_contains_library(client):
     # Check if any of the returned dictionaries has the name "Library"
     names = [office["name"] for office in data]
     assert "Library" in names
+    # Ensure offices are sorted by name
+    assert names == sorted(names, key=str.lower)
