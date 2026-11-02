@@ -1,15 +1,16 @@
+from unittest.mock import MagicMock
+
 import pytest  # type: ignore
+from pydantic import ValidationError  # type: ignore
+
 from assistant_core.errors import InvalidRequest  # type: ignore
 from assistant_core.models import Intent, Message  # type: ignore
 from assistant_core.responder import StubLLMResponder  # type: ignore
-from pydantic import ValidationError  # type: ignore
-
-from unittest.mock import MagicMock
-import pytest # type: ignore
-from assistant_core.responder import StubLLMResponder # type: ignore
 
 # Import your service (adjust the import path if it's in assistant_core.service)
 from assistant_core.service import AssistantService
+
+
 @pytest.fixture
 def service():
     # 1. Setup mock settings for the fee calculation

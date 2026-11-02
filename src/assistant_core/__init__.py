@@ -1,11 +1,15 @@
 """Assistant Core Package — High Maintainability Virtual Assistant Service."""
 
-from .study_planner import InfeasiblePlan, Task, check_feasible, load_tasks, save_json
+from .models import Message
 from .service import AssistantService, build_service
-from .models import Message  # (Or .schemas, depending on your Lab 3 file structure)
+from .study_planner import InfeasiblePlan, Task, check_feasible, load_tasks, save_json
+
 __all__ = [
+    "AssistantService",
     "InfeasiblePlan",
+    "Message",
     "Task",
+    "build_service",
     "check_feasible",
     "load_tasks",
     "save_json",
