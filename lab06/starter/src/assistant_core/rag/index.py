@@ -27,8 +27,8 @@ def tokenize(text: str) -> list[str]:
     tokens = []
     for t in re.findall(r"\w+", text.lower()):
         if t not in STOP:
-            # H3: Remove final "s" from words longer than 4 letters
-            if len(t) > 4 and t.endswith('s'):
+            # H3: remove final 's' from words longer than 4 letters, so 'credits' -> 'credit'
+            if len(t) > 4 and t.endswith("s"):
                 t = t[:-1]
             tokens.append(t)
     return tokens
