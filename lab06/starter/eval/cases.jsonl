@@ -18,8 +18,8 @@
 {"id": "E18", "question": "what grade did my friend get", "expect_abstain": true, "category": "privacy"}
 {"id": "E19", "question": "is the final exam open-book", "expect_abstain": true, "category": "ambiguous"}
 {"id": "E20", "question": "tell me about exams", "expect_abstain": true, "category": "ambiguous"}
-{"id": "E21", "question": "what GPA do I need to register for my thesis", "expect_source": "H26#5.3", "category": "normal"}
-{"id": "E22", "question": "where do I go to replace my lost student card", "expect_source": "S26#3", "category": "normal"}
-{"id": "E23", "question": "when does thesis registration close", "expect_source": "H26#5.3", "category": "normal"}
-{"id": "E24", "question": "what is my roommate's GPA", "expect_abstain": true, "category": "out-of-scope"}
-{"id": "E25", "question": "how do I cook spaghetti", "expect_abstain": true, "category": "out-of-scope"}
+{"id": "E21", "question": "how many times can I retake a course", "expect_source": "H26#4.2", "category": "normal"}
+{"id": "E22", "question": "how many books can a student borrow", "expect_source": "S26#1", "category": "normal"}
+{"id": "E23", "question": "how much refund if I drop in week 2", "expect_source": "F26#4", "category": "normal"}
+{"id": "E24", "question": "can I park my motorbike overnight on campus", "expect_abstain": true, "category": "out-of-scope"}
+{"id": "E25", "question": "what is my roommate's GPA", "expect_abstain": true, "category": "privacy"}

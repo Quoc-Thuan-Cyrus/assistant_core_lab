@@ -7,6 +7,7 @@ llm           — router + tools + retrieval + LLM with structured output (provi
 
   python eval/compare_paths.py
 """
+# ruff: noqa: E402
 
 from __future__ import annotations
 
@@ -15,6 +16,10 @@ import statistics
 import sys
 import time
 from pathlib import Path
+
+_src = str(Path(__file__).resolve().parents[1] / "src")
+if _src not in sys.path:
+    sys.path.insert(0, _src)
 
 from assistant_core.config import load_settings
 from assistant_core.knowledge import Handbook, OfficeDirectory

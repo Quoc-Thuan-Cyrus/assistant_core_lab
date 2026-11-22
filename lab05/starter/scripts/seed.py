@@ -7,8 +7,13 @@ python scripts/seed.py assistant.db 300
 import random
 import sys
 import uuid
+from pathlib import Path
 
-from assistant_api.db import Repository, init_db, make_engine
+_src = str(Path(__file__).resolve().parents[1] / "src")
+if _src not in sys.path:
+    sys.path.insert(0, _src)
+
+from assistant_api.db import Repository, init_db, make_engine  # noqa: E402
 
 db_path = sys.argv[1] if len(sys.argv) > 1 else "assistant.db"
 n = int(sys.argv[2]) if len(sys.argv) > 2 else 300
