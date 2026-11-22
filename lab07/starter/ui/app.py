@@ -72,7 +72,7 @@ for i, m in enumerate(st.session_state.messages):
 
 
 # ---- new question ----------------------------------------------------------------
-question = st.chat_input("Ask about fees, offices or the handbook…") or st.session_state.pop("pending", None)
+question = st.chat_input("Ask one question at a time (fees, offices, or the handbook)…") or st.session_state.pop("pending", None)
 if question:
     problem = validate_input(question)
     if problem:
@@ -86,12 +86,16 @@ if question:
         if result.ok:
             with st.chat_message("assistant"):
                 st.write_stream(stream_text(result.answer))
+            note = status_note(result)
+            if question.count("?") > 1:
+                multi_tip = "Tip: It looks like you asked multiple questions at once. Try asking one question at a time for a complete answer."
+                note = f"{note}\n\n{multi_tip}" if note else multi_tip
             st.session_state.messages.append({
                 "role": "assistant",
                 "content": result.answer,
                 "sources": format_sources(result.sources),
                 "raw_sources": result.sources,
-                "note": status_note(result),
+                "note": note,
                 "request_id": result.request_id,
             })
         else:
