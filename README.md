@@ -38,3 +38,7 @@ Dự án dịch vụ cốt lõi `assistant_core` có khả năng bảo trì cao 
 - Language flexibility
 - Centralized updates
 - Scalability and security
+how to run:
+Backend: uvicorn assistant_api.main:create_app --factory
+
+Frontend: streamlit run ui/app.py
