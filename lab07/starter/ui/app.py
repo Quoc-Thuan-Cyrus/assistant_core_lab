@@ -2,6 +2,7 @@
 
 The UI never imports assistant_core: it only talks to the backend through the HTTP API.
 """
+
 import os
 import sys
 import time
@@ -10,7 +11,7 @@ from pathlib import Path
 
 import streamlit as st
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))   # so "import ui..." works under streamlit
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # so "import ui..." works under streamlit
 
 from ui.api_client import AssistantClient
 from ui.logic import EXAMPLES, WELCOME, format_sources, status_note, validate_input
@@ -72,7 +73,9 @@ for i, m in enumerate(st.session_state.messages):
 
 
 # ---- new question ----------------------------------------------------------------
-question = st.chat_input("Ask one question at a time (fees, offices, or the handbook)…") or st.session_state.pop("pending", None)
+question = st.chat_input("Ask one question at a time (fees, offices, or the handbook)…") or st.session_state.pop(
+    "pending", None
+)
 if question:
     problem = validate_input(question)
     if problem:
@@ -88,16 +91,21 @@ if question:
                 st.write_stream(stream_text(result.answer))
             note = status_note(result)
             if question.count("?") > 1:
-                multi_tip = "Tip: It looks like you asked multiple questions at once. Try asking one question at a time for a complete answer."
+                multi_tip = (
+                    "Tip: It looks like you asked multiple questions at once. "
+                    "Try asking one question at a time for a complete answer."
+                )
                 note = f"{note}\n\n{multi_tip}" if note else multi_tip
-            st.session_state.messages.append({
-                "role": "assistant",
-                "content": result.answer,
-                "sources": format_sources(result.sources),
-                "raw_sources": result.sources,
-                "note": note,
-                "request_id": result.request_id,
-            })
+            st.session_state.messages.append(
+                {
+                    "role": "assistant",
+                    "content": result.answer,
+                    "sources": format_sources(result.sources),
+                    "raw_sources": result.sources,
+                    "note": note,
+                    "request_id": result.request_id,
+                }
+            )
         else:
             st.session_state.messages.append({"role": "assistant", "content": f"⚠️ {result.error}"})
         st.rerun()
